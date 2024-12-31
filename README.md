@@ -1,5 +1,4 @@
 # ShowPick
-# ShowPick
 
 **ShowPick** is a web-based platform designed to help users discover and explore films and series tailored to their interests. The system allows users to create accounts, log in,
 and search for content by genre, name, or age classification. Users can view detailed information about films and series, including storylines, directors, release dates, genres,
