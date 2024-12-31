@@ -1,7 +1,10 @@
 # ShowPick
 # ShowPick
 
-**ShowPick** is a user authentication web application that allows users to log in or create an account. It features a visually appealing interface with a background image, interactive forms, and client-side validation.
+**ShowPick** ShowPick is a web-based platform designed to help users discover and explore films and series tailored to their interests. The system allows users to create accounts, log in,
+and search for content by genre, name, or age classification. Users can view detailed information about films and series, including storylines, directors, release dates, genres,
+and reviews. Additionally, users can leave reviews, mark favorites, and personalize their
+experience for seamless content discovery.
 
 ## Features
 
