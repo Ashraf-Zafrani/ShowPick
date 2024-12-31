@@ -25,7 +25,7 @@
 
 - **HTML**: Structure and layout of the application.
 - **CSS**: Custom styling for the forms and background.
-- **JavaScript**: Form validation and dynamic toggling.
+- **JavaScript**: dynamic toggling.
 
 ## How It Works
 
