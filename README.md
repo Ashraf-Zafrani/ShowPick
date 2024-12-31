@@ -14,7 +14,7 @@ experience for seamless content discovery.
 - **Account Creation**: 
   - Fields for username, email, password, and password confirmation.
   
-- **Responsive Design**:
+- **Design**:
   - Styled with a clean and modern design.
   - Background image enhances visual appeal.
 
