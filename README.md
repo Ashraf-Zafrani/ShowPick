@@ -37,9 +37,6 @@
    - Users can create an account by filling in their username, email, and password.
    - Checks if passwords match and validates email format.
 
-## File Structure
-
-
 ## How to Use
 
 1. Clone or download the repository.
