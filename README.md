@@ -43,7 +43,7 @@
 ## How to Use
 
 1. Clone or download the repository.
-2. Open the `index.html` file in any modern web browser.
+2. Open the `showPick HTML.html` file in any modern web browser.
 3. Test the functionality by logging in or creating an account.
 
 ## Future Improvements
