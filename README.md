@@ -46,14 +46,6 @@
 2. Open the `index.html` file in any modern web browser.
 3. Test the functionality by logging in or creating an account.
 
-## Screenshots
-
-### Login Screen
-![Login Screen](https://prnt.sc/bt_Bhy0_m7qD)
-
-### Create Account Screen
-![Create Account Screen](https://via.placeholder.com/300x400?text=Create+Account+Screen)
-
 ## Future Improvements
 
 - Add backend integration for real user authentication.
