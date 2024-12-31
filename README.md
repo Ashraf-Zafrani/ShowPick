@@ -7,11 +7,9 @@
 
 - **Login Form**: 
   - Input fields for username and password.
-  - Dynamic error messaging for invalid or empty input.
   
 - **Account Creation**: 
   - Fields for username, email, password, and password confirmation.
-  - Validates matching passwords during account creation.
   
 - **Responsive Design**:
   - Styled with a clean and modern design.
@@ -19,7 +17,6 @@
 
 - **Interactive Elements**:
   - Toggling between login and create account views.
-  - Visual feedback for errors.
 
 ## Technologies Used
 
@@ -31,11 +28,12 @@
 
 1. **Login**:
    - Users can enter their username and password.
-   - Displays an error message if fields are empty or if authentication fails.
 
 2. **Create Account**:
    - Users can create an account by filling in their username, email, and password.
-   - Checks if passwords match and validates email format.
+     
+## File Structure
+
 
 ## How to Use
 
@@ -45,12 +43,8 @@
 
 ## Future Improvements
 
-- Add backend integration for real user authentication.
 - Store user data securely in a database.
-- Enhance responsiveness for smaller devices.
-- Implement advanced validation with error animations.
+- Make a Main Page for The Web Site
+- Redirect to The Main Page after Login or create a file
 
 
----
-
-Feel free to fork this project and contribute by submitting issues or pull requests!
