@@ -1,7 +1,7 @@
 # ShowPick
 # ShowPick
 
-**ShowPick** ShowPick is a web-based platform designed to help users discover and explore films and series tailored to their interests. The system allows users to create accounts, log in,
+**ShowPick** is a web-based platform designed to help users discover and explore films and series tailored to their interests. The system allows users to create accounts, log in,
 and search for content by genre, name, or age classification. Users can view detailed information about films and series, including storylines, directors, release dates, genres,
 and reviews. Additionally, users can leave reviews, mark favorites, and personalize their
 experience for seamless content discovery.
@@ -35,7 +35,6 @@ experience for seamless content discovery.
 2. **Create Account**:
    - Users can create an account by filling in their username, email, and password.
      
-## File Structure
 
 
 ## How to Use
@@ -48,6 +47,6 @@ experience for seamless content discovery.
 
 - Store user data securely in a database.
 - Make a Main Page for The Web Site
-- Redirect to The Main Page after Login or create a file
+- Redirect to The Main Page after Login or create an account
 
 
