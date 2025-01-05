@@ -38,8 +38,12 @@ experience for seamless content discovery.
 
 ## How to Use
 
-1. Clone or download the repository.
-2. Open the `showPick HTML.html` file in any modern web browser.
+1. Clone or download the repository from here:
+   
+   git clone https://github.com/your-username/ShowPick.git
+
+   
+3. Open the `message.html` file in any modern web browser.
 
 
 
