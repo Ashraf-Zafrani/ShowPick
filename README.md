@@ -41,6 +41,19 @@ experience for seamless content discovery.
 1. Clone or download the repository.
 2. Open the `showPick HTML.html` file in any modern web browser.
 
+
+##Usage
+
+1.Login/Registration:
+- Enter your credentials on the login page to log in.
+- If you don’t have an account, click the "Register" link to create one.
+2.Search Movies:
+- Use the search bar to find movies by title.
+-Apply filters for age classification and genre to refine results.
+3.Interactive Buttons:
+- Buttons and links provide smooth transitions between pages.
+
+
 ## Future Improvements
 
 - Store user data securely in a database.
