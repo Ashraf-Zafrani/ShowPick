@@ -42,7 +42,8 @@ experience for seamless content discovery.
 2. Open the `showPick HTML.html` file in any modern web browser.
 
 
-##Usage
+
+- ##Usage
 
 1.Login/Registration:
 - Enter your credentials on the login page to log in.
