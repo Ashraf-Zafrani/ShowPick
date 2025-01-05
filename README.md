@@ -15,7 +15,6 @@ experience for seamless content discovery.
   
 - **Design**:
   - Styled with a clean and modern design.
-  - Background image enhances visual appeal.
   - Search movies by title.
   - Filter results by age classification and genre.
 
@@ -27,27 +26,6 @@ experience for seamless content discovery.
 - **HTML**: Structure and layout of the application.
 - **CSS**: Custom styling for the forms and background.
 - **JavaScript**: dynamic toggling.
-
-## How It Works
-
-1. **Login**:
-   - Users can enter their username and password.
-
-2. **Create Account**:
-   - Users can create an account by filling in their username, email, and password.
-     
-
-
-## How to Use
-
-1. Clone or download the repository from here:
-   
-   git clone https://github.com/your-username/ShowPick.git
-
-   
-3. Open the `ShowPick.html` file in any modern web browser.
-
-
 
 ## Usage
 
@@ -63,10 +41,24 @@ experience for seamless content discovery.
 - Buttons and links provide smooth transitions between pages.
 
 
+## How to Use
+
+1. Clone or download the repository from here:
+   
+   git clone https://github.com/your-username/ShowPick.git
+
+   
+3. Open the `ShowPick.html` file in any modern web browser.
+
+
+
 ## Future Improvements
 
 - Store user data securely in a database.
 - Make a Main Page for The Web Site
 - Redirect to The Main Page after Login or create an account
+- Make user Leave a Reviews
+- Add favorite section
+- Show details about film or series
 
 
