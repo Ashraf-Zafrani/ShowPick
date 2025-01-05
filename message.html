@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><link rel="stylesheet" type="text/css" href="text.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Website</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1c1c2e, #3e3e58);
+            color: #f4f4f4;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #ffcc00;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        button {
+            background-color: #ffcc00;
+            color: #1c1c2e;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #f9a825;
+            transform: scale(1.1);
+        }
+
+        a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Login/Register Page */
+        #login-page, #home-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            width: 350px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #f4f4f4;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #2e2e46;
+            color: #f4f4f4;
+        }
+
+        input:focus {
+            border-color: #ffcc00;
+            outline: none;
+        }
+
+        /* Home Page */
+        #search-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #search-bar {
+            width: 60%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            background: #2e2e46;
+            color: #f4f4f4;
+        }
+
+        #search-bar:focus {
+            border-color: #ffcc00;
+            outline: none;
+        }
+
+        /* Filter Section */
+        #filters {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #combined-filter {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #2e2e46;
+            color: #f4f4f4;
+        }
+
+        /* Poster Section */
+        #poster-section img {
+            max-width: 80%;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Registration/Login Page -->
+    <div id="login-page">
+        <h1>Welcome to ShowPick</h1>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+            <p>Don't have an account? <a href="#" id="register-link">Register here</a></p>
+        </form>
+
+        <form id="register-form" style="display: none;">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="new-username">Username:</label>
+            <input type="text" id="new-username" name="new-username" required>
+
+            <label for="new-password">Password:</label>
+            <input type="password" id="new-password" name="new-password" required>
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+
+            <button type="submit">Register</button>
+            <p>Already have an account? <a href="#" id="login-link">Login here</a></p>
+        </form>
+    </div>
+
+    <!-- Home Page -->
+    <!-- Home Page -->
+<div id="home-page" style="display: none;">
+    <h1>ShowPick</h1>
+
+    <!-- إضافة الصورة -->
+    <div id="poster-section" style="text-align: center; margin-bottom: 10px;">
+        <img src="Superman Poster.png" alt="Superman Poster" style="max-width: 50%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+    </div>
+
+    <div id="search-section">
+        <input type="text" id="search-bar" placeholder="Search for a movie or series...">
+        <button id="search-button">Search</button>
+    </div>
+    
+    <h2>Filter Results</h2>
+    <div id="filters">
+        <label for="combined-filter">Filter by:</label>
+        <select id="combined-filter">
+            <optgroup label="Age Classification - All Ages">
+                <option value="all-action">Action</option>
+                <option value="all-comedy">Comedy</option>
+                <option value="all-horror">Horror</option>
+                <option value="all-drama">Drama</option>
+                <option value="all-romance">Romance</option>
+                <option value="all-sci-fi">Sci-Fi</option>
+                <option value="all-thriller">Thriller</option>
+            </optgroup>
+            <optgroup label="Age Classification - Kids">
+                <option value="kids-action">Action</option>
+                <option value="kids-comedy">Comedy</option>
+                <option value="kids-horror">Horror</option>
+                <option value="kids-drama">Drama</option>
+                <option value="kids-romance">Romance</option>
+                <option value="kids-sci-fi">Sci-Fi</option>
+                <option value="kids-thriller">Thriller</option>
+            </optgroup>
+            <optgroup label="Age Classification - Teenager">
+                <option value="teenager-action">Action</option>
+                <option value="teenager-comedy">Comedy</option>
+                <option value="teenager-horror">Horror</option>
+                <option value="teenager-drama">Drama</option>
+                <option value="teenager-romance">Romance</option>
+                <option value="teenager-sci-fi">Sci-Fi</option>
+                <option value="teenager-thriller">Thriller</option>
+            </optgroup>
+            <optgroup label="Age Classification - Adult">
+                <option value="adult-action">Action</option>
+                <option value="adult-comedy">Comedy</option>
+                <option value="adult-horror">Horror</option>
+                <option value="adult-drama">Drama</option>
+                <option value="adult-romance">Romance</option>
+                <option value="adult-sci-fi">Sci-Fi</option>
+                <option value="adult-thriller">Thriller</option>
+            </optgroup>
+        </select>
+    </div>
+</div>
+
+        
+     
+        
+    
+
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const loginPage = document.getElementById("login-page");
+            const homePage = document.getElementById("home-page");
+
+            const loginForm = document.getElementById("login-form");
+            const registerForm = document.getElementById("register-form");
+            const registerLink = document.getElementById("register-link");
+            const loginLink = document.getElementById("login-link");
+
+            const searchBar = document.getElementById("search-bar");
+            const searchButton = document.getElementById("search-button");
+
+            const ageClassFilter = document.getElementById("age-class");
+            const genreFilter = document.getElementById("genre");
+
+            // Toggle between login and register forms
+            registerLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                loginForm.style.display = "none";
+                registerForm.style.display = "block";
+            });
+
+            loginLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                registerForm.style.display = "none";
+                loginForm.style.display = "block";
+            });
+
+            // Dummy login handler
+            loginForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                loginPage.style.display = "none";
+                homePage.style.display = "flex";
+            });
+
+            // Dummy register handler
+            registerForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const password = document.getElementById("new-password").value;
+                const confirmPassword = document.getElementById("confirm-password").value;
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match!");
+                    return;
+                }
+
+                alert("Registration successful!");
+                registerForm.style.display = "none";
+                loginForm.style.display = "block";
+            });
+
+            // Search functionality
+            searchButton.addEventListener("click", () => {
+                const query = searchBar.value.trim();
+                if (query) {
+                    alert(`Searching for: ${query}`);
+                }
+            });
+            const combinedFilter = document.getElementById("combined-filter");
+
+// استخدام القيم المحددة في البحث
+combinedFilter.addEventListener("change", () => {
+    const selectedValue = combinedFilter.value;
+    alert(`Selected filter: ${selectedValue}`);
+});
+
+        });
+    </script>
+</body>
+</html>
