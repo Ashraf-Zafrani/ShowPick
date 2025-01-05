@@ -43,7 +43,7 @@ experience for seamless content discovery.
    git clone https://github.com/your-username/ShowPick.git
 
    
-3. Open the `message.html` file in any modern web browser.
+3. Open the `ShowPick.html` file in any modern web browser.
 
 
 
