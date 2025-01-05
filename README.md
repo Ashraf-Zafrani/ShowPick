@@ -16,6 +16,8 @@ experience for seamless content discovery.
 - **Design**:
   - Styled with a clean and modern design.
   - Background image enhances visual appeal.
+  - Search movies by title.
+  - Filter results by age classification and genre.
 
 - **Interactive Elements**:
   - Toggling between login and create account views.
