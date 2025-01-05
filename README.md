@@ -43,7 +43,7 @@ experience for seamless content discovery.
 
 
 
-- ##Usage
+## Usage
 
 1.Login/Registration:
 - Enter your credentials on the login page to log in.
