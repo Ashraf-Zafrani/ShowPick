@@ -51,107 +51,50 @@ Introduction
  provides a step-by-step guide to set up the ShowPick website on your local machine using XAMPP.
 
 Prerequisites
-Download and install XAMPP on your computer.
+
+Download all file from github
+
+Download and install XAMPP on your computer from this link https://www.apachefriends.org/download.html
+
 Setup Instructions
 
-1.Install XAMPP
-Download XAMPP from the official website.
-Follow the installation instructions specific to your operating system.
+1.Start Apache and MySQL:
+- After successfully installing XAMPP, open the XAMPP Control Panel.
+- Start the Apache and MySQL services by clicking the "Start" buttons for each.
 
-2.Move Project Files
-Navigate to the installation directory of XAMPP (e.g., C:\xampp on Windows).
-Place the website files in the htdocs directory.
+2.Navigate to the `htdocs` folder:
+- In the XAMPP Control Panel, click the Explorer button.
+- Open the `htdocs` folder located within the XAMPP installation directory.
 
-3.Start XAMPP Services
-Open the XAMPP control panel.
-Start the Apache and MySQL modules.
 
-4.Access MySQL Admin Panel
-In the XAMPP control panel, click the Admin button next to MySQL.
-This opens the phpMyAdmin interface in your browser.
+3.Manage project files:
+- Delete all files currently in the `htdocs` folder.
+- Copy and paste the project files downloaded from GitHub into the `htdocs` folder.
 
-5.Create a Database
-In phpMyAdmin:
-Click New in the left sidebar.
-Name the database ShowPick.
-Click Create.
 
-6.Create Tables
-Open the SQL tab in phpMyAdmin.
-Run the following SQL commands to create the required tables.
-Users Table:
-sql
-Copy code
-```
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
+4.Create a new database:
+- Go back to the XAMPP Control Panel and click Admin next to the MySQL service.
+- This will open phpMyAdmin in your browser.
+- Click New in the left sidebar to create a new database.
+- you must Name the database as this "ShowPick" 
 
-Movies Table:
-sql
-Copy code
-```
-CREATE TABLE movies (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    genre VARCHAR(50) NOT NULL,
-    age_class VARCHAR(20) NOT NULL,
-    image_url VARCHAR(255)
-);
-```
 
-7.Insert Movie Data
-Use the SQL tab in phpMyAdmin to run the following command and populate the movies table:
-sql
-Copy code
-```
-INSERT INTO movies (title, genre, age_class, image_url)
-VALUES
--- Action
-('The Dark Knight', 'action', 'adult', 'Posters/dark-knight.jpg'),
-('Avengers: Endgame', 'action', 'adult', 'Posters/avengers-endgame.jpg'),
-('Mad Max: Fury Road', 'action', 'adult', 'Posters/mad-max.jpg'),
-('John Wick', 'action', 'adult', 'Posters/john-wick.jpg'),
-('Spider-Man: Into the Spider-Verse', 'action', 'kids', 'Posters/spider-verse.jpg'),
+5.Import the SQL file:
+- After creating the database, click on the database name (ShowPick) in the left sidebar.
+- Go to the Import tab at the top.
+- Click Choose File and select the SQL file associated with the project.
+- Click the Go button to import the SQL file.
+- Note: Ensure the required tables, such as user and movie, are created.
 
--- Comedy
-('Finding Nemo', 'comedy', 'kids', 'Posters/finding-nemo.jpg'),
-('Shrek', 'comedy', 'kids', 'Posters/shrek.jpg'),
-('The Hangover', 'comedy', 'adult', 'Posters/hangover.jpg'),
-('Superbad', 'comedy', 'adult', 'Posters/superbad.jpg'),
-('Toy Story', 'comedy', 'kids', 'Posters/toy-story.jpg'),
 
--- Horror
-('The Conjuring', 'horror', 'adult', 'Posters/conjuring.jpg'),
-('A Quiet Place', 'horror', 'adult', 'Posters/a-quiet-place.jpg'),
-('It', 'horror', 'adult', 'Posters/it.jpg'),
-('Coraline', 'horror', 'kids', 'Posters/coraline.jpg'),
-('The Ring', 'horror', 'adult', 'Posters/ring.jpg'),
+6.Run the website:
+- Go back to the XAMPP Control Panel and click Admin next to the Apache service.
+- This will open the website's home page in your browser (if the setup is correct).
 
--- Drama
-('Breaking Bad', 'Drama', 'adult', 'Posters/breaking-bad.jpg'),
-('The Crown', 'Drama', 'adult', 'Posters/the-crown.jpg'),
-('Forrest Gump', 'Drama', 'adult', 'Posters/forrest-gump.jpg'),
-('The Pursuit of Happyness', 'Drama', 'adult', 'Posters/pursuit-of-happyness.jpg'),
-('Coco', 'Drama', 'kids', 'Posters/coco.jpg'),
 
--- Romance
-('The Notebook', 'romance', 'adult', 'Posters/the-notebook.jpg'),
-('Titanic', 'romance', 'adult', 'Posters/titanic.jpg'),
-('Pride and Prejudice', 'romance', 'adult', 'Posters/pride-and-prejudice.jpg'),
-('Beauty and the Beast', 'romance', 'kids', 'Posters/beauty-and-beast.jpg'),
-('The Fault in Our Stars', 'romance', 'adult', 'Posters/fault-in-our-stars.jpg');
-```
-8.Launch the Website
-Go back to the XAMPP control panel.
-Click the Admin button next to Apache.
-This will open the local server in your default browser.
-Navigate to the folder where your files are stored .
+7.Enjoy the website:
+- Now you can explore and enjoy the website. Test its features to ensure everything is working properly. 
+
 
 Troubleshooting
 - Ports in Use: If Apache or MySQL fails to start, ensure no other applications (e.g., Skype) are using ports 80 or 443. Adjust the ports in the XAMPP settings if needed.
