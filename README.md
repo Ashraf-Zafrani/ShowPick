@@ -25,7 +25,9 @@ experience for seamless content discovery.
 
 - **HTML**: Structure and layout of the application.
 - **CSS**: Custom styling for the forms and background.
-- **JavaScript**: dynamic toggling.
+- **JavaScript**: Dynamic toggling.
+-  **PHP**: Link the database to website
+-  **XAMPP**: To use apache to create local server and to use Mycql to create database 
 
 ## Usage
 
@@ -46,41 +48,41 @@ experience for seamless content discovery.
 
 ShowPick Website Setup Guide
 Introduction
-This document provides a step-by-step guide to set up the ShowPick website on your local machine using XAMPP.
+ provides a step-by-step guide to set up the ShowPick website on your local machine using XAMPP.
 
 Prerequisites
 Download and install XAMPP on your computer.
 Setup Instructions
 
-1. Install XAMPP
+1.Install XAMPP
 Download XAMPP from the official website.
 Follow the installation instructions specific to your operating system.
 
-2. Move Project Files
+2.Move Project Files
 Navigate to the installation directory of XAMPP (e.g., C:\xampp on Windows).
 Place the website files in the htdocs directory.
 
-3. Start XAMPP Services
+3.Start XAMPP Services
 Open the XAMPP control panel.
 Start the Apache and MySQL modules.
 
-4. Access MySQL Admin Panel
+4.Access MySQL Admin Panel
 In the XAMPP control panel, click the Admin button next to MySQL.
 This opens the phpMyAdmin interface in your browser.
 
-5. Create a Database
+5.Create a Database
 In phpMyAdmin:
 Click New in the left sidebar.
 Name the database ShowPick.
 Click Create.
 
-6. Create Tables
+6.Create Tables
 Open the SQL tab in phpMyAdmin.
 Run the following SQL commands to create the required tables.
 Users Table:
 sql
 Copy code
-
+```
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -88,10 +90,12 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+```
 
 Movies Table:
 sql
 Copy code
+```
 CREATE TABLE movies (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -99,12 +103,13 @@ CREATE TABLE movies (
     age_class VARCHAR(20) NOT NULL,
     image_url VARCHAR(255)
 );
+```
 
-7. Insert Movie Data
+7.Insert Movie Data
 Use the SQL tab in phpMyAdmin to run the following command and populate the movies table:
 sql
 Copy code
-
+```
 INSERT INTO movies (title, genre, age_class, image_url)
 VALUES
 -- Action
@@ -141,17 +146,18 @@ VALUES
 ('Pride and Prejudice', 'romance', 'adult', 'Posters/pride-and-prejudice.jpg'),
 ('Beauty and the Beast', 'romance', 'kids', 'Posters/beauty-and-beast.jpg'),
 ('The Fault in Our Stars', 'romance', 'adult', 'Posters/fault-in-our-stars.jpg');
-
-8. Launch the Website
+```
+8.Launch the Website
 Go back to the XAMPP control panel.
 Click the Admin button next to Apache.
 This will open the local server in your default browser.
 Navigate to the folder where your files are stored .
 
 Troubleshooting
-Ports in Use: If Apache or MySQL fails to start, ensure no other applications (e.g., Skype) are using ports 80 or 443. Adjust the ports in the XAMPP settings if needed.
+- Ports in Use: If Apache or MySQL fails to start, ensure no other applications (e.g., Skype) are using ports 80 or 443. Adjust the ports in the XAMPP settings if needed.
 Database Connection Issues: Verify the database name and credentials in your website's configuration files.
-With this guide, you should be able to set up and run the ShowPick website successfully. If you encounter any issues, feel free to reach out!
+
+- With this guide, you should be able to set up and run the ShowPick website successfully. If you encounter any issues, feel free to reach out!
 
 
 ## Future Improvements
