@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2025 at 03:36 PM
+-- Generation Time: Jan 07, 2025 at 04:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,13 +85,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`) VALUES
-(2, 'ss', 'ss@gmail.com', '$2y$10$P43jXOLW0cAnVPT6LUsqYebTQFF/BocU0T0AHv3ecbvWXbUKtUo3q', '2025-01-06 22:50:18'),
-(3, 'ddd', 'ddd@gamil.com', '$2y$10$h/bujK0zlFhl9VCI9u1/s.99DVvyHmLN9AwXtlVuoPLnYpQYaT7Ae', '2025-01-06 22:57:39'),
-(4, 'ahmed', 'ahmed@gmail.com', '$2y$10$JF74Ipr7CcA1BfG59KJ1P.nv.rpSqwk8Mv1fap19U6en/yKcf/UHe', '2025-01-06 22:59:10'),
-(6, '11', '11@gmai.com', '$2y$10$XlhsUgR8qYAfTltOoU9VSeWu9h0i9JOFW0pYqFh97azr14I93LB.C', '2025-01-06 23:25:14'),
-(7, 'hello', 'hello@gmail.com', '$2y$10$gwxL1FYBRE7pm7VTUXlEFutjcHE2PjuDmULaQxoGUUjqIaHO1nSP.', '2025-01-06 23:56:03'),
-(9, 'ashraf', 'ashraf123@gmail.com', '$2y$10$iJOEzlJLvIJT1dc9nxacr.4kb0AMudYHbUTl.t9iuYcEZEbw1DtYO', '2025-01-07 10:20:02'),
-(11, 'dddd', 'dddd@gamil.com', '$2y$10$7vXG0dLZ.qJ37N5pXez4r.5KbJQ3AVKvB17AveXATPeAo0PEZR1gi', '2025-01-07 14:27:12');
+(13, 'example', 'example@gmail.com', '$2y$10$epLBU3dtpET5ZDhBJBb6WOzkvLov8f7ay1jvMRHLdOzSVaNtfi6NG', '2025-01-07 15:00:15');
 
 --
 -- Indexes for dumped tables
@@ -125,7 +119,7 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
