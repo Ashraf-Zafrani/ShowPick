@@ -43,20 +43,119 @@ experience for seamless content discovery.
 
 ## How to Use
 
-1. Clone or download the repository from here:
-   
-   git clone https://github.com/your-username/ShowPick.git
 
-   
-3. Open the `ShowPick.html` file in any modern web browser.
+ShowPick Website Setup Guide
+Introduction
+This document provides a step-by-step guide to set up the ShowPick website on your local machine using XAMPP.
 
+Prerequisites
+Download and install XAMPP on your computer.
+Setup Instructions
+
+1. Install XAMPP
+Download XAMPP from the official website.
+Follow the installation instructions specific to your operating system.
+
+2. Move Project Files
+Navigate to the installation directory of XAMPP (e.g., C:\xampp on Windows).
+Place the website files in the htdocs directory.
+
+3. Start XAMPP Services
+Open the XAMPP control panel.
+Start the Apache and MySQL modules.
+
+4. Access MySQL Admin Panel
+In the XAMPP control panel, click the Admin button next to MySQL.
+This opens the phpMyAdmin interface in your browser.
+
+5. Create a Database
+In phpMyAdmin:
+Click New in the left sidebar.
+Name the database ShowPick.
+Click Create.
+
+6. Create Tables
+Open the SQL tab in phpMyAdmin.
+Run the following SQL commands to create the required tables.
+Users Table:
+sql
+Copy code
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Movies Table:
+sql
+Copy code
+CREATE TABLE movies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    genre VARCHAR(50) NOT NULL,
+    age_class VARCHAR(20) NOT NULL,
+    image_url VARCHAR(255)
+);
+
+7. Insert Movie Data
+Use the SQL tab in phpMyAdmin to run the following command and populate the movies table:
+sql
+Copy code
+
+INSERT INTO movies (title, genre, age_class, image_url)
+VALUES
+-- Action
+('The Dark Knight', 'action', 'adult', 'Posters/dark-knight.jpg'),
+('Avengers: Endgame', 'action', 'adult', 'Posters/avengers-endgame.jpg'),
+('Mad Max: Fury Road', 'action', 'adult', 'Posters/mad-max.jpg'),
+('John Wick', 'action', 'adult', 'Posters/john-wick.jpg'),
+('Spider-Man: Into the Spider-Verse', 'action', 'kids', 'Posters/spider-verse.jpg'),
+
+-- Comedy
+('Finding Nemo', 'comedy', 'kids', 'Posters/finding-nemo.jpg'),
+('Shrek', 'comedy', 'kids', 'Posters/shrek.jpg'),
+('The Hangover', 'comedy', 'adult', 'Posters/hangover.jpg'),
+('Superbad', 'comedy', 'adult', 'Posters/superbad.jpg'),
+('Toy Story', 'comedy', 'kids', 'Posters/toy-story.jpg'),
+
+-- Horror
+('The Conjuring', 'horror', 'adult', 'Posters/conjuring.jpg'),
+('A Quiet Place', 'horror', 'adult', 'Posters/a-quiet-place.jpg'),
+('It', 'horror', 'adult', 'Posters/it.jpg'),
+('Coraline', 'horror', 'kids', 'Posters/coraline.jpg'),
+('The Ring', 'horror', 'adult', 'Posters/ring.jpg'),
+
+-- Drama
+('Breaking Bad', 'Drama', 'adult', 'Posters/breaking-bad.jpg'),
+('The Crown', 'Drama', 'adult', 'Posters/the-crown.jpg'),
+('Forrest Gump', 'Drama', 'adult', 'Posters/forrest-gump.jpg'),
+('The Pursuit of Happyness', 'Drama', 'adult', 'Posters/pursuit-of-happyness.jpg'),
+('Coco', 'Drama', 'kids', 'Posters/coco.jpg'),
+
+-- Romance
+('The Notebook', 'romance', 'adult', 'Posters/the-notebook.jpg'),
+('Titanic', 'romance', 'adult', 'Posters/titanic.jpg'),
+('Pride and Prejudice', 'romance', 'adult', 'Posters/pride-and-prejudice.jpg'),
+('Beauty and the Beast', 'romance', 'kids', 'Posters/beauty-and-beast.jpg'),
+('The Fault in Our Stars', 'romance', 'adult', 'Posters/fault-in-our-stars.jpg');
+
+8. Launch the Website
+Go back to the XAMPP control panel.
+Click the Admin button next to Apache.
+This will open the local server in your default browser.
+Navigate to the folder where your files are stored .
+
+Troubleshooting
+Ports in Use: If Apache or MySQL fails to start, ensure no other applications (e.g., Skype) are using ports 80 or 443. Adjust the ports in the XAMPP settings if needed.
+Database Connection Issues: Verify the database name and credentials in your website's configuration files.
+With this guide, you should be able to set up and run the ShowPick website successfully. If you encounter any issues, feel free to reach out!
 
 
 ## Future Improvements
 
-- Store user data securely in a database.
-- Make a Main Page for The Web Site
-- Redirect to The Main Page after Login or create an account
 - Make user Leave a Reviews
 - Add favorite section
 - Show details about film or series
