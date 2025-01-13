@@ -172,6 +172,7 @@ input:focus {
 
             <button type="submit">Login</button>
             <a href="register.php" id="register-link">Don't have an account? Register here</a>
+            <!--nothing-->
         </form>
     </div>
 </body>
