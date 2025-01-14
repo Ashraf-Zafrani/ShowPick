@@ -17,7 +17,7 @@ try {
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
-h k 
+sdsxa 
 // Fetch movies if filters are set
 $movies = [];
 $searchTerm = $_GET['search'] ?? '';
