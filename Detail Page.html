@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowPick - Details</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1c1c2e, #3e3e58);
+            color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #3e3e58;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+        }
+
+        .action-buttons button {
+            background: #ffcc00;
+            color: #1c1c2e;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .action-buttons button:hover {
+            background: #f9a825;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="<?= htmlspecialchars($movie['image_url']) ?>" alt="Movie Poster" class="movie-poster">
+        <h1><?= htmlspecialchars($movie['title']) ?></h1>
+        <p><strong>Genre:</strong> <?= htmlspecialchars($movie['genre']) ?></p>
+        <p><strong>Age Classification:</strong> <?= htmlspecialchars($movie['age_class']) ?></p>
+        <p><strong>Description:</strong> <?= htmlspecialchars($movie['description']) ?></p>
+        <div class="action-buttons">
+            <form method="POST" action="add_to_favorites.php">
+                <input type="hidden" name="movie_id" value="<?= htmlspecialchars($movie['id']) ?>">
+                <button type="submit">Add to Favorites</button>
+            </form>
+            <a href="home.php">
+                <button>Back to Home</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
