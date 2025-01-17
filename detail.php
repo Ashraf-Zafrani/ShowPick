@@ -1,5 +1,4 @@
 <?php
-// Start session and verify user login
 session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: login.php');
@@ -26,7 +25,7 @@ if (!$movieId) {
     die("Invalid movie ID.");
 }
 
-// Fetch movie details from database
+// Fetch movie details
 $query = "SELECT * FROM movies WHERE id = :movie_id";
 $stmt = $pdo->prepare($query);
 $stmt->execute([':movie_id' => $movieId]);
@@ -37,17 +36,33 @@ if (!$movie) {
     die("Movie not found.");
 }
 
+<<<<<<< HEAD
 // Debugging: check the contents of $movie
 // var_dump($movie); // Uncomment this line to debug
 
 // Function to convert YouTube watch URL to embed URL
+=======
+// Display success/error message if available
+$successMessage = $_SESSION['success_message'] ?? null;
+$errorMessage = $_SESSION['error_message'] ?? null;
+
+// Clear messages after displaying
+unset($_SESSION['success_message'], $_SESSION['error_message']);
+
+// Function to convert YouTube URL to embed URL
+>>>>>>> b787ff3cdd4b36fff67adf15908425d60be0c4dc
 function convertToEmbedUrl($url) {
     if (preg_match('/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $url, $matches)) {
         return "https://www.youtube.com/embed/" . $matches[1];
     }
+<<<<<<< HEAD
     return $url;
+=======
+    return $url; // Return as is if not a YouTube watch URL
+>>>>>>> b787ff3cdd4b36fff67adf15908425d60be0c4dc
 }
 
+// Convert Trailer URL to embed URL
 $embedUrl = convertToEmbedUrl($movie['Trailers']);
 
 // Fetch existing comments for the movie
@@ -87,11 +102,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShowPick - Movie Details</title>
     <style>
+        /* General Styles */
         body {
             font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg,rgb(0, 0, 0), #3e3e58);
+            background: linear-gradient(135deg, #1c1c2e, #3e3e58);
             color: #f4f4f4;
         }
 
@@ -105,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
             text-align: center;
         }
 
+        /* Movie Poster */
         .movie-poster {
             width: 100%;
             max-width: 400px;
@@ -113,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
             margin-bottom: 20px;
         }
 
+        /* Titles and Text */
         h1 {
             font-size: 28px;
             color: #ffcc00;
@@ -124,6 +142,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
             line-height: 1.6;
         }
 
+        /* Trailer */
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Action Buttons */
         .action-buttons {
             margin-top: 20px;
         }
@@ -144,12 +172,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
             background: #f9a825;
         }
 
-        iframe {
-            width: 100%;
-            height: 400px;
-            border: none;
-            border-radius: 10px;
-            margin-top: 20px;
+        /* Message Styles */
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
         }
 
         .comments-section {
@@ -194,6 +233,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
 </head>
 <body>
     <div class="container">
+        <?php if ($successMessage): ?>
+            <div class="message success"><?= htmlspecialchars($successMessage) ?></div>
+        <?php elseif ($errorMessage): ?>
+            <div class="message error"><?= htmlspecialchars($errorMessage) ?></div>
+        <?php endif; ?>
+
         <img src="<?= htmlspecialchars($movie['image_url']) ?>" alt="Movie Poster" class="movie-poster">
         <h1><?= htmlspecialchars($movie['title']) ?></h1>
         <p><strong>Genre:</strong> <?= htmlspecialchars($movie['genre']) ?></p>
@@ -201,12 +246,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
         <p><strong>Release Year:</strong> <?= htmlspecialchars($movie['Release_Year']) ?></p>
         <p><strong>Description:</strong> <?= htmlspecialchars($movie['description']) ?></p>
 
-        <!-- Display Trailer from YouTube -->
+        <!-- Trailer -->
         <?php if (!empty($embedUrl)): ?>
+<<<<<<< HEAD
             <h2>Trailer:</h2>
+=======
+            <h2 style="color: #ffcc00;">Trailer:</h2>
+>>>>>>> b787ff3cdd4b36fff67adf15908425d60be0c4dc
             <iframe src="<?= htmlspecialchars($embedUrl) ?>" allowfullscreen></iframe>
         <?php else: ?>
-            <p>No trailer available.</p>
+            <p>No trailer available for this movie.</p>
         <?php endif; ?>
 
         <div class="action-buttons">
@@ -214,9 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
                 <input type="hidden" name="movie_id" value="<?= htmlspecialchars($movie['id']) ?>">
                 <button type="submit">Add to Favorites</button>
             </form>
-            <a href="home.php">
-                <button>Back to Home</button>
-            </a>
+            <a href="home.php"><button>Back to Home</button></a>
         </div>
         
         <div class="comments-section">
