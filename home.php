@@ -17,6 +17,7 @@ try {
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
+
 // Fetch movies if filters are set
 $movies = [];
 $searchTerm = $_GET['search'] ?? '';
@@ -116,6 +117,12 @@ if (!$isFiltered) {
             <form method="POST" action="logout.php">
                 <button type="submit" id="logout-button">Logout</button>
             </form>
+        </div>
+        <!-- Favorites Button -->
+        <div id="favorites-container">
+            <a href="favorites.php">
+                <button id="favorites-button">Favorites</button>
+            </a>
         </div>
     </div>
 
