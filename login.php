@@ -27,7 +27,13 @@ try {
         if ($user) {
             // Verify password (if hashed)
             if (password_verify($inputPassword, $user['password'])) {
-                $_SESSION['user'] = $user['username'];
+                // Store user ID and username in session
+                $_SESSION['user'] = [
+                    'id' => $user['id'],
+                    'username' => $user['username'],
+                    // You can store more user data if necessary
+                ];
+
                 header('Location: home.php');
                 exit();
             } else {
@@ -176,4 +182,3 @@ input:focus {
     </div>
 </body>
 </html>
-<!--testing-->
