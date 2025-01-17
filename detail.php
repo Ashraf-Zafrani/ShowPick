@@ -32,19 +32,52 @@ $stmt = $pdo->prepare($query);
 $stmt->execute([':movie_id' => $movieId]);
 $movie = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Check if movie was found
 if (!$movie) {
     die("Movie not found.");
 }
+
+// Debugging: check the contents of $movie
+// var_dump($movie); // Uncomment this line to debug
 
 // Function to convert YouTube watch URL to embed URL
 function convertToEmbedUrl($url) {
     if (preg_match('/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $url, $matches)) {
         return "https://www.youtube.com/embed/" . $matches[1];
     }
-    return $url; // Return the URL as is if it's not a YouTube watch URL
+    return $url;
 }
 
 $embedUrl = convertToEmbedUrl($movie['Trailers']);
+
+// Fetch existing comments for the movie
+$queryComments = "
+    SELECT c.comment, c.rating, u.username 
+    FROM comments c 
+    JOIN users u ON c.user_id = u.id 
+    WHERE movie_id = :movie_id 
+    ORDER BY c.created_at DESC";
+$stmtComments = $pdo->prepare($queryComments);
+$stmtComments->execute([':movie_id' => $movieId]);
+$comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
+
+// Handle comment submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
+    $comment = $_POST['comment'];
+    $rating = $_POST['rating'];
+    
+    // Insert comment into database
+    $insertQuery = "INSERT INTO comments (movie_id, user_id, comment, rating) VALUES (:movie_id, :user_id, :comment, :rating)";
+    $stmtInsert = $pdo->prepare($insertQuery);
+    $stmtInsert->execute([
+        ':movie_id' => $movieId,
+        ':user_id' => $_SESSION['user']['id'],
+        ':comment' => $comment,
+        ':rating' => $rating
+    ]);
+    header("Location: movie_details.php?movie_id=$movieId");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -118,6 +151,45 @@ $embedUrl = convertToEmbedUrl($movie['Trailers']);
             border-radius: 10px;
             margin-top: 20px;
         }
+
+        .comments-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .comments-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .comments-section textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .star-rating {
+            direction: rtl;
+            display: inline-block;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .star-rating input:checked ~ label {
+            color: #ffcc00;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffcc00;
+        }
     </style>
 </head>
 <body>
@@ -132,7 +204,7 @@ $embedUrl = convertToEmbedUrl($movie['Trailers']);
         <!-- Display Trailer from YouTube -->
         <?php if (!empty($embedUrl)): ?>
             <h2>Trailer:</h2>
-            <iframe src="<?= htmlspecialchars($embedUrl) ?>" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="<?= htmlspecialchars($embedUrl) ?>" allowfullscreen></iframe>
         <?php else: ?>
             <p>No trailer available.</p>
         <?php endif; ?>
@@ -145,6 +217,41 @@ $embedUrl = convertToEmbedUrl($movie['Trailers']);
             <a href="home.php">
                 <button>Back to Home</button>
             </a>
+        </div>
+        
+        <div class="comments-section">
+            <h2>User Comments:</h2>
+            <form method="POST" action="">
+                <textarea name="comment" rows="4" required placeholder="Leave a comment..."></textarea>
+                <br>
+                <div class="star-rating">
+                    <input type="radio" id="star1" name="rating" value="5" required>
+                    <label for="star1">&#9733;</label>
+                    <input type="radio" id="star2" name="rating" value="4">
+                    <label for="star2">&#9733;</label>
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3">&#9733;</label>
+                    <input type="radio" id="star4" name="rating" value="2">
+                    <label for="star4">&#9733;</label>
+                    <input type="radio" id="star5" name="rating" value="1">
+                    <label for="star5">&#9733;</label>
+                </div>
+                <br>
+                <button type="submit">Submit Comment</button>
+            </form>
+
+            <?php if ($comments): ?>
+                <ul class="comments-list">
+                    <?php foreach ($comments as $c): ?>
+                        <li>
+                            <strong><?= htmlspecialchars($c['username']) ?> (<?= htmlspecialchars($c['rating']) ?> Star<?= $c['rating'] > 1 ? 's' : '' ?>):</strong>
+                            <p><?= htmlspecialchars($c['comment']) ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>No comments yet.</p>
+            <?php endif; ?>
         </div>
     </div>
 </body>
