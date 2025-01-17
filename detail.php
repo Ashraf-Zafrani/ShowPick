@@ -1,15 +1,64 @@
+<?php
+// Start session and verify user login
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+    exit();
+}
+
+// Database connection
+$host = 'localhost';
+$dbname = 'ShowPick';
+$username = 'root';
+$password = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+// Get movie ID from query string
+$movieId = $_GET['movie_id'] ?? null;
+
+if (!$movieId) {
+    die("Invalid movie ID.");
+}
+
+// Fetch movie details from database
+$query = "SELECT * FROM movies WHERE id = :movie_id";
+$stmt = $pdo->prepare($query);
+$stmt->execute([':movie_id' => $movieId]);
+$movie = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$movie) {
+    die("Movie not found.");
+}
+
+// Function to convert YouTube watch URL to embed URL
+function convertToEmbedUrl($url) {
+    if (preg_match('/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $url, $matches)) {
+        return "https://www.youtube.com/embed/" . $matches[1];
+    }
+    return $url; // Return the URL as is if it's not a YouTube watch URL
+}
+
+$embedUrl = convertToEmbedUrl($movie['Trailers']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShowPick - Details</title>
+    <title>ShowPick - Movie Details</title>
     <style>
         body {
             font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #1c1c2e, #3e3e58);
+            background: linear-gradient(135deg,rgb(0, 0, 0), #3e3e58);
             color: #f4f4f4;
         }
 
@@ -61,6 +110,14 @@
         .action-buttons button:hover {
             background: #f9a825;
         }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -69,7 +126,17 @@
         <h1><?= htmlspecialchars($movie['title']) ?></h1>
         <p><strong>Genre:</strong> <?= htmlspecialchars($movie['genre']) ?></p>
         <p><strong>Age Classification:</strong> <?= htmlspecialchars($movie['age_class']) ?></p>
+        <p><strong>Release Year:</strong> <?= htmlspecialchars($movie['Release_Year']) ?></p>
         <p><strong>Description:</strong> <?= htmlspecialchars($movie['description']) ?></p>
+
+        <!-- Display Trailer from YouTube -->
+        <?php if (!empty($embedUrl)): ?>
+            <h2>Trailer:</h2>
+            <iframe src="<?= htmlspecialchars($embedUrl) ?>" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <?php else: ?>
+            <p>No trailer available.</p>
+        <?php endif; ?>
+
         <div class="action-buttons">
             <form method="POST" action="add_to_favorites.php">
                 <input type="hidden" name="movie_id" value="<?= htmlspecialchars($movie['id']) ?>">
