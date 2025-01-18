@@ -87,6 +87,7 @@ if (!$isFiltered) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="home.css">
     <title>ShowPick - Home</title>
+    <link rel="shortcut icon" href="ShowPick icon.png">
 </head>
 <body>
     <div id="search-section">

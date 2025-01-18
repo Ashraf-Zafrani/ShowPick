@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - ShowPick</title>
-
+    <link rel="shortcut icon" href="ShowPick icon.png">
     <style>
         body {
     font-family: 'Poppins', Arial, sans-serif;
