@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2025 at 10:13 PM
+-- Generation Time: Jan 18, 2025 at 01:02 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `comment` text NOT NULL,
+  `rating` int(11) DEFAULT NULL CHECK (`rating` >= 1 and `rating` <= 5),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `movie_id`, `user_id`, `comment`, `rating`, `created_at`) VALUES
+(21, 18, 15, 'This is the best movie ', 5, '2025-01-17 23:26:13'),
+(22, 12, 15, 'asdasdas', 5, '2025-01-17 23:27:00'),
+(24, 1, 15, 'dsfsdfsdfsd', 1, '2025-01-17 23:30:48'),
+(25, 1, 14, 'eefsdfsddfsfsdfssdfsdfsfsf1', 3, '2025-01-17 23:31:09');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `favorites`
 --
 
@@ -38,8 +63,10 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id`, `user_id`, `movie_id`) VALUES
-(5, 14, 11),
-(11, 13, 12);
+(0, 14, 25),
+(0, 13, 12),
+(0, 13, 2),
+(0, 14, 1);
 
 -- --------------------------------------------------------
 
@@ -109,19 +136,20 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`) VALUES
 (13, 'example', 'example@gmail.com', '$2y$10$epLBU3dtpET5ZDhBJBb6WOzkvLov8f7ay1jvMRHLdOzSVaNtfi6NG', '2025-01-07 15:00:15'),
-(14, 'test', 'test@gmail.com', '$2y$10$8BpQBDS4.P6apvMxrIM.2Oir3JHb7zAGLA0StihaluOCScoyjy5GW', '2025-01-17 17:10:29');
+(14, 'test', 'test@gmail.com', '$2y$10$8BpQBDS4.P6apvMxrIM.2Oir3JHb7zAGLA0StihaluOCScoyjy5GW', '2025-01-17 17:10:29'),
+(15, 'ashraf', 'ashraf@gmail.com', '$2y$10$0hzN35n9XZp2/YflEcPCsuqE56JgW8M7J9wm8QWp0lDwku2vHdshO', '2025-01-17 23:25:21');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `favorites`
+-- Indexes for table `comments`
 --
-ALTER TABLE `favorites`
+ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `movie_id` (`movie_id`);
+  ADD KEY `movie_id` (`movie_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `movies`
@@ -142,10 +170,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `favorites`
+-- AUTO_INCREMENT for table `comments`
 --
-ALTER TABLE `favorites`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `movies`
@@ -157,18 +185,18 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `favorites`
+-- Constraints for table `comments`
 --
-ALTER TABLE `favorites`
-  ADD CONSTRAINT `favorites_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `favorites_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`);
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
