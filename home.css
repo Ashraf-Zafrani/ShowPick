@@ -170,6 +170,12 @@ a:hover {
     border-radius: 10px;
     border: 2px solid #ffcc00;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth effect */
+}
+
+.movie-card:hover {
+    transform: scale(1.05); /* Scale up slightly */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
 }
 
 .movie-card img {

@@ -50,7 +50,7 @@ try {
 
         .content {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(5, 1fr); /* 5 movies per row */
             gap: 20px;
             justify-content: center;
             padding: 20px;
@@ -59,23 +59,30 @@ try {
         }
 
         .movie-card {
-            background: #3e3e58;
-            padding: 10px;
+            background: #2c2c3a; /* Darker background for better contrast */
+            padding: 15px;
             text-align: center;
             border-radius: 10px;
             border: 2px solid #ffcc00;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease; /* Smooth scaling on hover */
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
         }
 
         .movie-card img {
             width: 100%;
             height: auto;
             border-radius: 5px;
+            margin-bottom: 10px; /* Space between image and title */
         }
 
         .movie-card h3 {
             color: #ffcc00;
             margin: 10px 0;
+            font-size: 20px; /* Adjust font size */
         }
 
         .remove-button {
@@ -90,6 +97,47 @@ try {
 
         .remove-button:hover {
             background: #d32f2f;
+        }
+
+        .no-favorites {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 204, 0, 0.2);
+            border-radius: 10px;
+            border: 2px dashed #ffcc00;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .no-favorites:hover {
+            transform: scale(1.05);
+            background: rgba(255, 204, 0, 0.3);
+        }
+
+        .no-favorites h2 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: 32px;
+        }
+
+        .no-favorites p {
+            color: #f4f4f4;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .explore-button {
+            background: #ffcc00;
+            color: #1c1c2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .explore-button:hover {
+            background: #f9a825;
         }
 
         .back-home {
@@ -128,7 +176,12 @@ try {
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>You don't have any favorites yet.</p>
+            <div class="no-favorites">
+                <h2>No Favorites Yet!</h2>
+                <p>It looks like you haven't added any movies to your favorites.</p>
+                <p>Explore our collection and add some favorites!</p>
+                <a href="home.php"><button class="explore-button">Explore Movies</button></a>
+            </div>
         <?php endif; ?>
     </div>
     <div class="back-home">
