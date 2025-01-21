@@ -25,14 +25,14 @@ experience for seamless content discovery.
  - 10 random films and series appear in the home page.
 
 - **Detail Page**:
-- Info about the films or series
-- Trailer
-- Button to add the films or series to the favorites
-- Comment field
-- Rating 
+ - Info about the films or series
+ - Trailer
+ - Button to add the films or series to the favorites
+ - Comment field
+ - Rating 
 
 - **favorites Page**:
-- Display all your favorites films or series
+ - Display all your favorites films or series
    
 ## Technologies Used
 
