@@ -22,17 +22,19 @@ experience for seamless content discovery.
   - Toggling between login and create account views.
 
 - **Random films and series**:
- - 10 random films and series appear in the home page.
+  - 10 random films and series appear in the home page.
+
+- **Logout Button **
 
 - **Detail Page**:
- - Info about the films or series
- - Trailer
- - Button to add the films or series to the favorites
- - Comment field
- - Rating 
+  - Info about the films or series
+  - Trailer
+  - Button to add the films or series to the favorites
+  - Comment field
+  - Rating 
 
 - **favorites Page**:
- - Display all your favorites films or series
+  - Display all your favorites films or series
    
 ## Technologies Used
 
