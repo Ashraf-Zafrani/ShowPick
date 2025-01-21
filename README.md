@@ -24,7 +24,7 @@ experience for seamless content discovery.
 - **Random films and series**:
   - 10 random films and series appear in the home page.
 
-- **Logout Button **:
+- **Logout Button**:
 
 - **Detail Page**:
   - Info about the films or series
