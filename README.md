@@ -105,8 +105,8 @@ Database Connection Issues: Verify the database name and credentials in your web
 
 ## Future Improvements
 
-- Make user Leave a Reviews
-- Add favorite section
-- Show details about film or series
+- admin interface
+- admin can add , edit and remove movies / series
+- Admin can delete comments
 
 
