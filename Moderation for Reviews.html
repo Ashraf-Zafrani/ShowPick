@@ -1,0 +1,178 @@
+<?php
+session_start();
+
+// Check if the user is logged in and is a moderator or admin
+if (!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'admin' && $_SESSION['user']['role'] !== 'moderator')) {
+    header('Location: login.php');
+    exit();
+}
+
+// Database connection
+$host = 'localhost';
+$dbname = 'ShowPick';
+$username = 'root';
+$password = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+// Handle form submissions
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['approve_review'])) {
+        // Approve a review
+        $review_id = $_POST['review_id'];
+        $stmt = $pdo->prepare("UPDATE reviews SET status = 'approved' WHERE id = :review_id");
+        $stmt->execute([':review_id' => $review_id]);
+
+        $_SESSION['success_message'] = "Review approved successfully!";
+    } elseif (isset($_POST['delete_review'])) {
+        // Delete a review
+        $review_id = $_POST['review_id'];
+        $stmt = $pdo->prepare("DELETE FROM reviews WHERE id = :review_id");
+        $stmt->execute([':review_id' => $review_id]);
+
+        $_SESSION['success_message'] = "Review deleted successfully!";
+    }
+}
+
+// Fetch all pending reviews
+$stmt = $pdo->query("SELECT r.id, r.review, r.status, m.title AS movie_title, u.username AS user_name 
+                     FROM reviews r
+                     JOIN movies m ON r.movie_id = m.id
+                     JOIN users u ON r.user_id = u.id
+                     WHERE r.status = 'pending'");
+$pending_reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderation Interface - Reviews</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1c1c2e, #3e3e58);
+            color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #3e3e58;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffcc00;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+        }
+
+        table th {
+            background: #444;
+            color: #fff;
+        }
+
+        form {
+            display: inline;
+        }
+
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .approve-button {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .delete-button {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .approve-button:hover {
+            background: #218838;
+        }
+
+        .delete-button:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Moderation Interface - Reviews</h1>
+
+        <!-- Success Message -->
+        <?php if (!empty($_SESSION['success_message'])): ?>
+            <div class="success"><?= htmlspecialchars($_SESSION['success_message']) ?></div>
+            <?php unset($_SESSION['success_message']); ?>
+        <?php endif; ?>
+
+        <!-- Pending Reviews Table -->
+        <h2>Pending Reviews</h2>
+        <table>
+            <tr>
+                <th>Movie</th>
+                <th>User</th>
+                <th>Review</th>
+                <th>Actions</th>
+            </tr>
+            <?php foreach ($pending_reviews as $review): ?>
+                <tr>
+                    <td><?= htmlspecialchars($review['movie_title']) ?></td>
+                    <td><?= htmlspecialchars($review['user_name']) ?></td>
+                    <td><?= htmlspecialchars($review['review']) ?></td>
+                    <td>
+                        <form method="POST">
+                            <input type="hidden" name="review_id" value="<?= htmlspecialchars($review['id']) ?>">
+                            <button type="submit" name="approve_review" class="approve-button">Approve</button>
+                            <button type="submit" name="delete_review" class="delete-button">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+
+        <?php if (empty($pending_reviews)): ?>
+            <p style="text-align: center; color: #ccc;">No pending reviews at the moment.</p>
+        <?php endif; ?>
+    </div>
+</body>
+</html>
