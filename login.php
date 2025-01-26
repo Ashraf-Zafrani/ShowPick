@@ -18,6 +18,12 @@ try {
         $inputUsername = $_POST['username'];
         $inputPassword = $_POST['password'];
 
+        // Check for admin credentials
+    if ($inputUsername === 'admin' && $inputPassword === 'admin') {
+        header('Location: admin.php');
+        exit();
+    }
+
         // Query to check if the user exists
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
         $stmt->bindParam(':username', $inputUsername);
