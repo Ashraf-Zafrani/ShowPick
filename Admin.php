@@ -183,11 +183,7 @@ if (isset($_GET['edit_movie'])) {
         }
 
         .update-section {
-            display: none;
             margin-top: 20px;
-            padding: 20px;
-            background: #2a2a3a;
-            border-radius: 10px;
         }
 
         .update-section h2 {
@@ -196,15 +192,11 @@ if (isset($_GET['edit_movie'])) {
         }
     </style>
     <script>
-        function toggleUpdateSection() {
-            const updateSection = document.getElementById('update-section');
-            updateSection.style.display = updateSection.style.display === 'block' ? 'none' : 'block';
-        }
-
         function showUpdateSection() {
             document.getElementById('update-section').style.display = 'block';
         }
     </script>
+        <link rel="shortcut icon" href="ShowPick icon.png">
 </head>
 <body>
 <div class="container">
@@ -212,7 +204,7 @@ if (isset($_GET['edit_movie'])) {
     
     <div class="form-container">
         <h2>Add New Movie</h2>
-        <form method="POST">
+        <form method="POST" class="form-container">
             <input type="text" name="title" placeholder="Title" required>
             <input type="text" name="genre" placeholder="Genre" required>
             <input type="number" name="release_year" placeholder="Release Year" required>
@@ -250,9 +242,9 @@ if (isset($_GET['edit_movie'])) {
     </table>
 
     <?php if ($movie_to_edit): ?>
-        <div id="update-section" class="update-section" style="display: block;">
+        <div id="update-section" class="update-section">
             <h2>Update Movie</h2>
-            <form method="POST">
+            <form method="POST" class="form-container">
                 <input type="hidden" name="id" value="<?php echo $movie_to_edit['id']; ?>">
                 <input type="text" name="title" value="<?php echo htmlspecialchars($movie_to_edit['title']); ?>" placeholder="Title" required>
                 <input type="text" name="genre" value="<?php echo htmlspecialchars($movie_to_edit['genre']); ?>" placeholder="Genre" required>
