@@ -10,6 +10,7 @@ $username = 'root'; // Replace with your MySQL username
 $password = ''; // Replace with your MySQL password
 
 try {
+    // Connect to the database
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -18,41 +19,55 @@ try {
         $inputUsername = $_POST['username'];
         $inputPassword = $_POST['password'];
 
-        // Check for admin credentials
-    if ($inputUsername === 'admin' && $inputPassword === 'admin') {
-        header('Location: admin.php');
-        exit();
-    }
-
-        // Query to check if the user exists
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+        // Check if the user is an admin (no password hashing)
+        $stmt = $pdo->prepare("SELECT * FROM admins WHERE username = :username");
         $stmt->bindParam(':username', $inputUsername);
         $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
-            // Verify password (if hashed)
-            if (password_verify($inputPassword, $user['password'])) {
-                // Store user ID and username in session
-                $_SESSION['user'] = [
-                    'id' => $user['id'],
-                    'username' => $user['username'],
-                    // You can store more user data if necessary
+        if ($admin) {
+            // Direct password comparison (no hashing for admin)
+            if ($inputPassword === $admin['password']) {
+                // Admin login successful
+                $_SESSION['admin'] = [
+                    'id' => $admin['id'],
+                    'username' => $admin['username'],
                 ];
-
-                header('Location: home.php');
+                header('Location: admin.php');
                 exit();
             } else {
-                $error = 'Invalid password.';
+                $error = 'Invalid admin password.';
             }
         } else {
-            $error = 'User not found.';
+            // Check for regular user (password hashed)
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+            $stmt->bindParam(':username', $inputUsername);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user) {
+                // Verify password (hashed for users)
+                if (password_verify($inputPassword, $user['password'])) {
+                    // Store user ID and username in session
+                    $_SESSION['user'] = [
+                        'id' => $user['id'],
+                        'username' => $user['username'],
+                    ];
+                    header('Location: home.php');
+                    exit();
+                } else {
+                    $error = 'Invalid password.';
+                }
+            } else {
+                $error = 'User not found.';
+            }
         }
     }
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -163,8 +178,6 @@ input:focus {
             border-radius: 50%;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
-
-
     </style>
 </head>
 <body>

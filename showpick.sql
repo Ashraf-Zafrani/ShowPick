@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2025 at 01:02 AM
+-- Generation Time: Jan 27, 2025 at 05:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admins`
+--
+
+CREATE TABLE `admins` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `username`, `password`) VALUES
+(1, 'admin', '11110000');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
@@ -35,16 +54,6 @@ CREATE TABLE `comments` (
   `rating` int(11) DEFAULT NULL CHECK (`rating` >= 1 and `rating` <= 5),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id`, `movie_id`, `user_id`, `comment`, `rating`, `created_at`) VALUES
-(21, 18, 15, 'This is the best movie ', 5, '2025-01-17 23:26:13'),
-(22, 12, 15, 'asdasdas', 5, '2025-01-17 23:27:00'),
-(24, 1, 15, 'dsfsdfsdfsd', 1, '2025-01-17 23:30:48'),
-(25, 1, 14, 'eefsdfsddfsfsdfssdfsdfsfsf1', 3, '2025-01-17 23:31:09');
 
 -- --------------------------------------------------------
 
@@ -64,8 +73,6 @@ CREATE TABLE `favorites` (
 
 INSERT INTO `favorites` (`id`, `user_id`, `movie_id`) VALUES
 (0, 14, 25),
-(0, 13, 12),
-(0, 13, 2),
 (0, 14, 1);
 
 -- --------------------------------------------------------
@@ -137,11 +144,19 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`) VALUES
 (13, 'example', 'example@gmail.com', '$2y$10$epLBU3dtpET5ZDhBJBb6WOzkvLov8f7ay1jvMRHLdOzSVaNtfi6NG', '2025-01-07 15:00:15'),
 (14, 'test', 'test@gmail.com', '$2y$10$8BpQBDS4.P6apvMxrIM.2Oir3JHb7zAGLA0StihaluOCScoyjy5GW', '2025-01-17 17:10:29'),
-(15, 'ashraf', 'ashraf@gmail.com', '$2y$10$0hzN35n9XZp2/YflEcPCsuqE56JgW8M7J9wm8QWp0lDwku2vHdshO', '2025-01-17 23:25:21');
+(15, 'ashraf', 'ashraf@gmail.com', '$2y$10$0hzN35n9XZp2/YflEcPCsuqE56JgW8M7J9wm8QWp0lDwku2vHdshO', '2025-01-17 23:25:21'),
+(16, 'ghhjfjfjjf', 'ghhjfjfjjfghhjfjfjjf@gamil.com', '$2y$10$itLVz6vFCRZoOuZyup92qu27FyLFT03DXTjp2CLGAVdKRNcbLzeya', '2025-01-26 18:40:50'),
+(17, 'faris', 'faris@gmail.com', '$2y$10$BQ5orOU3uayJIKAUF2K13OWt5GrueWuRhoDBqJFs39dYJ7GZCCzoy', '2025-01-27 16:20:53');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `comments`
@@ -170,22 +185,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
