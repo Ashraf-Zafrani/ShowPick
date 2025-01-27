@@ -29,8 +29,9 @@ experience for seamless content discovery.
 
 - **favorites Page**:
   - Display all your favorites films or series
+  - remove button to remove the films or series from favorites Page
 
-  - **Admin Page**:
+- **Admin Page**:
   - admin can add , edit and remove movies / series
   - Admin can delete comments
    
