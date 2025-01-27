@@ -57,7 +57,7 @@ experience for seamless content discovery.
 - Buttons and links provide smooth transitions between pages.
 
 
-## How to Use
+## How to setup the website
 
 
 ShowPick Website Setup Guide
