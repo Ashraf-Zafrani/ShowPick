@@ -12,19 +12,15 @@ experience for seamless content discovery.
   
 - **Account Creation**: 
   - Fields for username, email, password, and password confirmation.
-  
-- **Design**:
-  - Styled with a clean and modern design.
-  - Search movies by title.
-  - Filter results by age classification and genre.
 
-- **Interactive Elements**:
-  - Toggling between login and create account views.
-
-- **Random films and series**:
+- **Home page**:
   - 10 random films and series appear in the home page.
+  - search bar
+  - filter by gener
+  - filter by age 
 
 - **Logout Button**
+  - logout form the user account
 
 - **Detail Page**:
   - Info about the films or series
@@ -35,6 +31,10 @@ experience for seamless content discovery.
 
 - **favorites Page**:
   - Display all your favorites films or series
+
+  - **Admin Page**:
+  - admin can add , edit and remove movies / series
+  - Admin can delete comments
    
 ## Technologies Used
 
@@ -118,10 +118,5 @@ Database Connection Issues: Verify the database name and credentials in your web
 - With this guide, you should be able to set up and run the ShowPick website successfully. If you encounter any issues, feel free to reach out!
 
 
-## Future Improvements
-
-- admin interface
-- admin can add , edit and remove movies / series
-- Admin can delete comments
 
 
