@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root"; // Change this to your database username
-$password = ""; // Change this to your database password
+$username = "root";
+$password = "";
 $dbname = "showpick";
 
 // Create connection
@@ -14,20 +14,45 @@ if ($conn->connect_error) {
 
 // Handle adding a movie
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_movie'])) {
-    $title = $_POST['title'];
-    $genre = $_POST['genre'];
-    $release_year = $_POST['release_year'];
-    $description = $_POST['description'];
-    $image_url = $_POST['image_url'];
-    $trailers = $_POST['trailers'];
-    $age_class = $_POST['age_class'];
+    $title = $conn->real_escape_string($_POST['title']);
+    $genre = $conn->real_escape_string($_POST['genre']);
+    $release_year = $conn->real_escape_string($_POST['release_year']);
+    $description = $conn->real_escape_string($_POST['description']);
+    $image_url = $conn->real_escape_string($_POST['image_url']);
+    $trailers = $conn->real_escape_string($_POST['trailers']);
+    $age_class = $conn->real_escape_string($_POST['age_class']);
 
-    $sql = "INSERT INTO movies (title, genre, Release_Year, description, image_url, Trailers, age_class) VALUES ('$title', '$genre', '$release_year', '$description', '$image_url', '$trailers', '$age_class')";
-    
+    $sql = "INSERT INTO movies (title, genre, Release_Year, description, image_url, Trailers, age_class) 
+            VALUES ('$title', '$genre', '$release_year', '$description', '$image_url', '$trailers', '$age_class')";
+
     if ($conn->query($sql) === TRUE) {
-        echo "New movie added successfully.";
+        echo "<script>alert('New movie added successfully.');</script>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "<script>alert('Error: " . $conn->error . "');</script>";
+    }
+}
+
+// Handle updating a movie
+if (isset($_POST['update_movie'])) {
+    $id = $_POST['id'];
+    $title = $conn->real_escape_string($_POST['title']);
+    $genre = $conn->real_escape_string($_POST['genre']);
+    $release_year = $conn->real_escape_string($_POST['release_year']);
+    $description = $conn->real_escape_string($_POST['description']);
+    $image_url = $conn->real_escape_string($_POST['image_url']);
+    $trailers = $conn->real_escape_string($_POST['trailers']);
+    $age_class = $conn->real_escape_string($_POST['age_class']);
+
+    $sql = "UPDATE movies 
+            SET title='$title', genre='$genre', Release_Year='$release_year', 
+                description='$description', image_url='$image_url', 
+                Trailers='$trailers', age_class='$age_class' 
+            WHERE id=$id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>alert('Movie updated successfully.');</script>";
+    } else {
+        echo "<script>alert('Error: " . $conn->error . "');</script>";
     }
 }
 
@@ -41,26 +66,6 @@ if (isset($_GET['delete_movie'])) {
 if (isset($_GET['delete_comment'])) {
     $id = $_GET['delete_comment'];
     $conn->query("DELETE FROM comments WHERE id=$id");
-}
-
-// Handle updating a movie
-if (isset($_POST['update_movie'])) {
-    $id = $_POST['id'];
-    $title = $_POST['title'];
-    $genre = $_POST['genre'];
-    $release_year = $_POST['release_year'];
-    $description = $_POST['description'];
-    $image_url = $_POST['image_url'];
-    $trailers = $_POST['trailers'];
-    $age_class = $_POST['age_class'];
-
-    $sql = "UPDATE movies SET title='$title', genre='$genre', Release_Year='$release_year', description='$description', image_url='$image_url', Trailers='$trailers', age_class='$age_class' WHERE id=$id";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Movie updated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
 }
 
 // Fetch movies and comments
@@ -82,6 +87,7 @@ if (isset($_GET['edit_movie'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin & Moderation Interface</title>
     <style>
+        /* General styling */
         body {
             font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
@@ -89,7 +95,6 @@ if (isset($_GET['edit_movie'])) {
             background: linear-gradient(135deg, #1c1c2e, #3e3e58);
             color: #f4f4f4;
         }
-
         .container {
             max-width: 900px;
             margin: 50px auto;
@@ -98,29 +103,24 @@ if (isset($_GET['edit_movie'])) {
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-
         h1 {
             text-align: center;
             color: #ffcc00;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-
         table th, table td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #555;
         }
-
         table th {
             background: #444;
             color: #fff;
         }
-
         a {
             text-decoration: none;
             padding: 5px 10px;
@@ -128,28 +128,19 @@ if (isset($_GET['edit_movie'])) {
             color: #fff;
             transition: background 0.3s;
         }
-
         .edit-button {
             background: #007bff;
         }
-
         .delete-button {
             background: #dc3545;
         }
-
         .edit-button:hover {
             background: #0056b3;
         }
-
         .delete-button:hover {
             background: #c82333;
         }
-
-        .form-container {
-            margin-bottom: 20px;
-        }
-
-        .form-container input, .form-container textarea, .form-container select {
+        .form-container input, .form-container select, .form-container textarea {
             width: 96%;
             padding: 15px;
             margin-bottom: 15px;
@@ -158,16 +149,7 @@ if (isset($_GET['edit_movie'])) {
             background: #2a2a3a;
             color: #fff;
             font-size: 16px;
-            transition: border 0.3s, background 0.3s, color 0.3s;
         }
-
-        .form-container input:focus, .form-container textarea:focus, .form-container select:focus {
-            border: 1px solid #ffcc00;
-            background: #3e3e58;
-            color: #fff;
-            outline: none;
-        }
-
         .form-container button {
             background: #28a745;
             color: #fff;
@@ -175,38 +157,37 @@ if (isset($_GET['edit_movie'])) {
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
         }
-
         .form-container button:hover {
             background: #218838;
         }
-
         .update-section {
             margin-top: 20px;
         }
-
-        .update-section h2 {
-            color: #ffcc00;
-            margin-bottom: 10px;
-        }
     </style>
     <script>
-        function showUpdateSection() {
-            document.getElementById('update-section').style.display = 'block';
+        function confirmAction(message, url) {
+            if (confirm(message)) {
+                window.location = url;
+            }
         }
     </script>
-        <link rel="shortcut icon" href="ShowPick icon.png">
 </head>
 <body>
 <div class="container">
     <h1>Admin & Moderation Interface</h1>
-    
     <div class="form-container">
         <h2>Add New Movie</h2>
-        <form method="POST" class="form-container">
+        <form method="POST" onsubmit="return confirm('Are you sure you want to add this movie?');">
             <input type="text" name="title" placeholder="Title" required>
-            <input type="text" name="genre" placeholder="Genre" required>
+            <select name="genre" required>
+                <option value="">Select Genre</option>
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Horror">Horror</option>
+                <option value="Drama">Drama</option>
+                <option value="Romance">Romance</option>
+            </select>
             <input type="number" name="release_year" placeholder="Release Year" required>
             <textarea name="description" placeholder="Description" required></textarea>
             <input type="text" name="image_url" placeholder="Image URL" required>
@@ -219,7 +200,6 @@ if (isset($_GET['edit_movie'])) {
             <button type="submit" name="add_movie">Add Movie</button>
         </form>
     </div>
-    
     <h2>Existing Movies</h2>
     <table>
         <tr>
@@ -234,34 +214,39 @@ if (isset($_GET['edit_movie'])) {
                 <td><?php echo htmlspecialchars($movie['genre']); ?></td>
                 <td><?php echo htmlspecialchars($movie['Release_Year']); ?></td>
                 <td>
-                    <a class="edit-button" href="?edit_movie=<?php echo $movie['id']; ?>" onclick="showUpdateSection();">Edit</a> | 
-                    <a class="delete-button" href="?delete_movie=<?php echo $movie['id']; ?>">Delete</a>
+                    <a class="edit-button" href="?edit_movie=<?php echo $movie['id']; ?>">Edit</a> | 
+                    <a class="delete-button" href="javascript:confirmAction('Are you sure you want to delete this movie?', '?delete_movie=<?php echo $movie['id']; ?>')">Delete</a>
                 </td>
             </tr>
         <?php endwhile; ?>
     </table>
-
     <?php if ($movie_to_edit): ?>
-        <div id="update-section" class="update-section">
+        <div class="update-section">
             <h2>Update Movie</h2>
-            <form method="POST" class="form-container">
+            <form method="POST" div class="form-container" onsubmit="return confirm('Are you sure you want to update this movie?');">
+                
                 <input type="hidden" name="id" value="<?php echo $movie_to_edit['id']; ?>">
-                <input type="text" name="title" value="<?php echo htmlspecialchars($movie_to_edit['title']); ?>" placeholder="Title" required>
-                <input type="text" name="genre" value="<?php echo htmlspecialchars($movie_to_edit['genre']); ?>" placeholder="Genre" required>
-                <input type="number" name="release_year" value="<?php echo htmlspecialchars($movie_to_edit['Release_Year']); ?>" placeholder="Release Year" required>
-                <textarea name="description" placeholder="Description" required><?php echo htmlspecialchars($movie_to_edit['description']); ?></textarea>
-                <input type="text" name="image_url" value="<?php echo htmlspecialchars($movie_to_edit['image_url']); ?>" placeholder="Image URL" required>
-                <input type="text" name="trailers" value="<?php echo htmlspecialchars($movie_to_edit['Trailers']); ?>" placeholder="Trailer URL" required>
+                <input type="text" name="title" value="<?php echo htmlspecialchars($movie_to_edit['title']); ?>" required>
+                <select name="genre" required>
+                    <option value="Action" <?php echo $movie_to_edit['genre'] == 'Action' ? 'selected' : ''; ?>>Action</option>
+                    <option value="Comedy" <?php echo $movie_to_edit['genre'] == 'Comedy' ? 'selected' : ''; ?>>Comedy</option>
+                    <option value="Horror" <?php echo $movie_to_edit['genre'] == 'Horror' ? 'selected' : ''; ?>>Horror</option>
+                    <option value="Drama" <?php echo $movie_to_edit['genre'] == 'Drama' ? 'selected' : ''; ?>>Drama</option>
+                    <option value="Romance" <?php echo $movie_to_edit['genre'] == 'Romance' ? 'selected' : ''; ?>>Romance</option>
+                </select>
+                <input type="number" name="release_year" value="<?php echo htmlspecialchars($movie_to_edit['Release_Year']); ?>" required>
+                <textarea name="description" required><?php echo htmlspecialchars($movie_to_edit['description']); ?></textarea>
+                <input type="text" name="image_url" value="<?php echo htmlspecialchars($movie_to_edit['image_url']); ?>" required>
+                <input type="text" name="trailers" value="<?php echo htmlspecialchars($movie_to_edit['Trailers']); ?>" required>
                 <select name="age_class" required>
-                    <option value="adult" <?php if ($movie_to_edit['age_class'] == 'adult') echo 'selected'; ?>>Adult</option>
-                    <option value="kids" <?php if ($movie_to_edit['age_class'] == 'kids') echo 'selected'; ?>>Kids</option>
+                    <option value="adult" <?php echo $movie_to_edit['age_class'] == 'adult' ? 'selected' : ''; ?>>Adult</option>
+                    <option value="kids" <?php echo $movie_to_edit['age_class'] == 'kids' ? 'selected' : ''; ?>>Kids</option>
                 </select>
                 <button type="submit" name="update_movie">Update Movie</button>
             </form>
         </div>
     <?php endif; ?>
 </div>
-
 <div class="container">
     <h2>Comments</h2>
     <table>
@@ -276,7 +261,9 @@ if (isset($_GET['edit_movie'])) {
                 <td><?php echo htmlspecialchars($comment['movie_id']); ?></td>
                 <td><?php echo htmlspecialchars($comment['user_id']); ?></td>
                 <td><?php echo htmlspecialchars($comment['comment']); ?></td>
-                <td><a class="delete-button" href="?delete_comment=<?php echo $comment['id']; ?>">Delete</a></td>
+                <td>
+                    <a class="delete-button" href="javascript:confirmAction('Are you sure you want to delete this comment?', '?delete_comment=<?php echo $comment['id']; ?>')">Delete</a>
+                </td>
             </tr>
         <?php endwhile; ?>
     </table>

@@ -27,7 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'All fields are required.';
     } elseif (!filter_var($regEmail, FILTER_VALIDATE_EMAIL)) {
         $error = 'Invalid email format.';
-    } elseif ($regPassword !== $confirmPassword) {
+    } 
+    elseif (strlen($regPassword) < 8) {
+        $error = 'Password must be at least 8 characters long.';
+    }
+    elseif ($regPassword !== $confirmPassword) {
         $error = 'Passwords do not match.';
     } else {
         // Hash the password

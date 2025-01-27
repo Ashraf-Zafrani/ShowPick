@@ -93,7 +93,7 @@ if ($numberOfRatings > 0) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
     $comment = $_POST['comment'];
     $rating = $_POST['rating'];
-
+   
     // Check if the user has already commented on this movie
     $checkCommentQuery = "SELECT * FROM comments WHERE movie_id = :movie_id AND user_id = :user_id";
     $stmtCheckComment = $pdo->prepare($checkCommentQuery);
@@ -387,7 +387,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_comment'])) {
                     <span class="star" data-value="4">&#9733;</span>
                     <span class="star" data-value="5">&#9733;</span>
                 </div>
-                <input type="hidden" name="rating" id="rating" value="0" required>
+                <input type="hidden" name="rating" id="rating" value="1" required>
                 <br>
                 <button type="submit">Submit Comment</button>
             </form>
