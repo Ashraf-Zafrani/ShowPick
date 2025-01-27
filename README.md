@@ -17,10 +17,8 @@ experience for seamless content discovery.
   - 10 random films and series appear in the home page.
   - search bar
   - filter by gener
-  - filter by age 
-
-- **Logout Button**
-  - logout form the user account
+  - filter by age
+  - Logout Button
 
 - **Detail Page**:
   - Info about the films or series
