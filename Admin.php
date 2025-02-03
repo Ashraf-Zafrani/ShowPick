@@ -87,7 +87,6 @@ if (isset($_GET['edit_movie'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin & Moderation Interface</title>
     <style>
-        /* General styling */
         body {
             font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
@@ -141,7 +140,7 @@ if (isset($_GET['edit_movie'])) {
             background: #c82333;
         }
         .form-container input, .form-container select, .form-container textarea {
-            width: 96%;
+            width: 95%;
             padding: 15px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
@@ -164,17 +163,35 @@ if (isset($_GET['edit_movie'])) {
         .update-section {
             margin-top: 20px;
         }
-    </style>
-    <script>
-        function confirmAction(message, url) {
-            if (confirm(message)) {
-                window.location = url;
-            }
+        #logout-container {
+            text-align: center;
+            margin-bottom: 20px;
         }
-    </script>
+        #logout-button {
+            background: #dc3545;
+            color: #fff;
+            margin: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #logout-button:hover {
+            background: #c82333;
+        }
+    </style>
 </head>
 <body>
+
+
+
 <div class="container">
+<div id="logout-container">
+    <form method="POST" action="logout.php">
+        <button type="submit" id="logout-button">Logout</button>
+    </form>
+</div>
     <h1>Admin & Moderation Interface</h1>
     <div class="form-container">
         <h2>Add New Movie</h2>
@@ -268,9 +285,14 @@ if (isset($_GET['edit_movie'])) {
         <?php endwhile; ?>
     </table>
 </div>
+
+<script>
+    function confirmAction(message, url) {
+        if (confirm(message)) {
+            window.location.href = url;
+        }
+    }
+</script>
+
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
